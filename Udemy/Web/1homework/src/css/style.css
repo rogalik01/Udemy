@@ -1,0 +1,10 @@
+body {
+    background-color:rgb(104, 153, 151);
+}
+h2 {
+    text-transform: uppercase;
+    text-align: center;
+}
+.italic {
+    font-style: italic;
+}

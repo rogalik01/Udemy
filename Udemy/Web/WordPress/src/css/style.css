@@ -1,0 +1,320 @@
+* {
+    box-sizing: border-box; /* Учёт внешних и внутренних отступов при расчёте ширины и длины блока */
+    margin: 0; /* Сбрасываем значения по умолчанию */
+    padding: 0;
+}
+
+.container {
+    position: relative;
+    width: 1140px;
+    margin: 0 auto;
+}
+
+.promo {
+    height: 800px;
+    background: url('../img/FirstScreen/BC.png') center center/cover no-repeat; /* x y size растянуть_на_весь_блок*/
+    padding: 39px 0 62px 0;
+}
+
+.logo .logo_img {
+    display: block;
+    margin: 0 auto;
+}
+
+.logo .logo_text {
+    color: white;
+    font-family: Roboto;
+    font-style: 15px;
+    font-weight: 500;
+    line-height: 24px; /* Межстрочный интервал */
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 14px;
+}
+
+h1 {
+    margin-top: 53px;
+}
+
+/* .simple .title_big - в классе симпл класс тайтл */
+/* h2 с классом title */
+
+h2.title {
+    margin-top: 30px;
+}
+
+.title {
+    color: #f9bf3b;
+    font-size: 41px;
+    /* font-family: 'Roboto Black', sans-serif; */
+    font-weight: 300;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+.simple .title_big {
+    color: #ffffff;
+    font-size: 80px;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 21px;
+}
+
+.promo .promo_text {
+    color: white;
+    font-size: 21px;
+    font-weight: 300;
+    line-height: 28px;
+    text-align: center;
+    padding: 0 13px;
+    margin-top: 23px;
+}
+
+.promo .promo_text span {
+    color: #f9bf3b;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.promo .promo_btn, .present .present_btn {
+    display: block;
+    margin: 0px auto;
+    margin-top: 63px;
+    width: 313px;
+    height: 72px;
+    box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.18);
+    border: 4px solid rgba(0, 0, 0, 0.23);
+    background-image: linear-gradient(to top, #2798b9 0%, #3ab6da 100%);
+    color:#ffffff;
+    font-family: "Roboto Condensed";
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 24px;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
+}
+
+.present .present_btn {
+    margin-top: 19px;
+    margin-bottom: 28px;
+}
+
+.more {
+    margin-top: 55px;
+}
+
+.more .more_txt {
+    color: white;
+    font-family: "Roboto - Thin";
+    font-size: 15px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.more .more_img {
+    display: block;
+    margin: 0 auto;
+    margin-top: 13px;
+    margin-bottom: 73px;
+}
+
+.waiting {
+    min-height: 604px;
+    background-color: #efefef;
+    padding: 85px 0 0 75px;
+}
+
+.waiting .waiting_header, .finish .finish_header {
+    color: #252525;
+    font-family: Roboto;
+    font-size: 30px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.finish .finish_header {
+    color: white;
+}
+
+.waiting .waiting_divider, .finish .finish_divider  {
+    margin: 0 auto;
+    margin-top: 18px;
+    width: 217px;
+    height: 4px;
+    background-color: #f9bf3b;
+}
+.waiting .waiting_subheader {
+    text-align: center;
+    color: #4a4a4a;
+    font-family: Roboto;
+    font-size: 23px;
+    font-weight: 400;
+    margin-top: 17px;
+}
+.waiting .waiting_wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 45px;
+}
+
+.waiting .waiting_wrapper .waiting_item {
+    width: 339px;
+    text-align: center;
+}
+
+.waiting .waiting_wrapper .waiting_item .waiting_img {
+    width: 100%;
+}
+
+.waiting .waiting_wrapper .waiting_item .waiting_descr {
+    margin-top: 33px;
+    color: #4a4a4a;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 21px;
+}
+
+.optimization {
+    min-height: 550px;
+    padding: 102px 0 107px 0;
+}
+
+.optimization .optimization_header {
+    margin-left: 391px;
+    color: #299cbd;
+    font-family: "Roboto - Black";
+    font-size: 30px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.optimization .optimization_text {
+    margin-top: 25px;
+    margin-left: 391px;
+    color: #4a4a4a;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 27px;
+    font-family: "Roboto light";
+}
+
+.optimization .optimization_text span {
+    font-family: "Roboto - Bold";
+    font-weight: 700;
+}
+
+.optimization .optimization_img {
+    position: absolute;
+    top: -54px;
+    left: -240px;
+    z-index: -1;
+}
+
+.finish {
+    min-height: 447px;
+    padding: 86px 0 79px 0;
+    background: url('../img/icons/IconsBC.png') center center/cover no-repeat;
+}
+
+.finish .finish_wrapper {
+    margin-top: 41px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.finish .finish_wrapper .finish_item {
+    width: 204px;
+    color: white;
+}
+.finish .finish_wrapper .finish_item .finish_descr {
+    margin-top: 25px;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 20px;
+}
+
+.finish .finish_wrapper .finish_item .finish_round {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 115px;
+    height: 115px;
+    background-color: #b4e2ff;
+    border-radius: 100%;
+    margin: 0 auto;
+}
+
+.footer {
+    padding: 86px 0 79px 0;
+    background-color:#141414;
+}
+
+.footer .footer_text {
+    display: block;
+    margin: 0 auto;
+    font-size: 20px;
+    color: #4a4a4a;
+    text-align: center;
+    line-height: 27px;
+}
+
+.first_webinar {
+    padding: 50px 0 35px 0;
+}
+
+.first_webinar .first_webinar_img {
+    display: block;
+    margin: 0 auto;
+}
+
+.first_webinar h2 {
+    text-align: center;
+    padding-top: 20px;
+    font-weight: 300;
+    font-size: 28px;
+}
+
+.first_webinar h3 {
+    text-align: center;
+    padding-top: 11px;
+    font-size: 32px;
+    font-weight: 600;
+    color:#2798b9;
+}
+
+.first_webinar h4 {
+    text-align: center;
+    padding-top: 10px;
+    font-weight: 300;
+    font-size: 19px;
+    color: rgba(0, 0, 0, 0.808)
+}
+
+.present {
+    padding: 50px 0 50px 0;
+    background-color: rgb(235, 235, 235);
+}
+
+.present .present_img {
+    display: block;
+    margin: 0 auto;
+}
+
+.present .present_text {
+    padding: 50px 0 50px 0;
+    font-family: Roboto;
+    font-size: 33px;
+    font-weight: 549;
+    text-align: center;
+}
