@@ -1,13 +1,14 @@
-function safeStringReader (message) {
-    let data;
-    while (true) {
-        data = prompt(message, "");
-        if (data != "" && data != null && data.length <= 50) {
-            return data;
-        } else {
-            alert("Incorrect input. Plese try again...");
+"use strict";
+
+function progression(a, b) {
+    let res =`${a}`;
+    for (let i = 2; i <= b; i++) {
+        if (b != 1 && i != b + 1) {
+            res +=`---`;
         }
+        res += a*i;
     }
+    console.log(res);
 }
 
-console.log(safeStringReader("How do you rate it?"));
+progression(5, -3);

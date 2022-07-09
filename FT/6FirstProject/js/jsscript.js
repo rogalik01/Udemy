@@ -1,3 +1,5 @@
+"use strict";
+
 function safeStringReader (message) {
     let data;
     while (true) {
