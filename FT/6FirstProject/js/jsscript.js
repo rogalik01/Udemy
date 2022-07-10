@@ -1,7 +1,8 @@
 "use strict";
 // При объявлении через var переменная как бы существует ещё до фактического объявления.
 // Как и функции functiom functionName() {}     (function declaration)
-// let functionName = function() {};         (function expression)  Начинает существование только после своего объявления, а вызывается также
+// let functionName = function() {};         (function expression)  Начинает существование 
+//      только после своего объявления, а вызывается также
 // () =>        (Стрелочная функция)
 // const calc = (a, b) => a + b ;
 // const calc = (a, b) => { return a + b };
@@ -43,7 +44,7 @@ function definePersonalLevel() {
     } else if (wathedMovies > 30) {
         alert("You're cinemaddict.");
     } else {
-        alert("A error has occured.")
+        alert("A error has occured.");
     }
 }
 function showMyDB() {
