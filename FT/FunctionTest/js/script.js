@@ -1,6 +1,8 @@
 "use strict";
 
-function progression(a, b) {
+
+
+/* function progression(a, b) {
     let res =`${a}`;
     for (let i = 2; i <= b; i++) {
         if (b != 1 && i != b + 1) {
@@ -11,4 +13,4 @@ function progression(a, b) {
     console.log(res);
 }
 
-progression(5, -3);
+progression(5, -3); */
