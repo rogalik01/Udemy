@@ -1,3 +1,21 @@
+function anOldTask() {
+    let arr = [5, 5, "Строка", 9, 8, "Строка побольше", 13];
+    let result = [];
+    for (let i = 0; result.length != arr.length; i++) {
+        if(typeof(arr[i]) == "string") {
+            result[i] = arr[i] + " done";
+        } else {
+            result[i] = +arr[i] * 2;
+        }
+    }
+    console.log(arr);
+    console.log(result);
+    for (let i = 0; i < arr.length; i++) {
+        result[i] = arr[arr.length - i - 1];
+    }
+    console.log(result);
+}
+
 function calculateVolumeAndArea(a) {
     let res;
     res = `Area of cube equils ` + a*6;
