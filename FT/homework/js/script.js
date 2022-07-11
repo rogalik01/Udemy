@@ -88,4 +88,112 @@ function FibonacciSequence(length) {
 function task10(length) {
     console.log(FibonacciSequence(+length));
 }
-task10(10);
+
+
+
+
+
+
+
+
+function task11(plan) {
+    showExperience(plan);
+    showProgrammingLangs(plan);
+    plan.showAgeAndLangs();
+}
+
+function showExperience(plan) {
+    let { exp } = plan;
+    console.log("Experiens equils " + exp + " " + (exp == 1 ? "month" : "months"));
+}
+
+function showProgrammingLangs(plan) {
+    for (let i in plan["langs"]) {
+        console.log(`Language ${i} is studied by ${plan["langs"][i]}`);
+    }
+}
+
+ const personalPlanPeter = {
+    age: 29,
+    exp: 10,
+    langs: {
+        Php: '20%',
+        Phyton: '98%',
+        Pascal: '10%'
+    },
+    showAgeAndLangs: function() {
+        let res = "", count = 0;
+        for (let i in this.langs) {
+            count++;
+            if (count != 1) {
+                res += ", ";
+            }
+            res += i;
+        }
+        console.log(`I'm ${this.age} years old and I'm studing ${res}`);
+    }
+ };
+
+
+ 
+ function showFamily(arrOfStrings) {
+    if (arrOfStrings.length == 0) {
+        console.log("This family is empty.");
+        return;
+    }
+    console.log(`This family includes ${[...arrOfStrings].join(", ")}`);
+ }
+
+ function task12(arr) {
+    showFamily(arr);
+    standartizeStrings(arr);
+ }
+
+ function standartizeStrings(arr) {
+    arr.forEach(function (item) {
+        console.log(item.toLowerCase());
+    });
+ }
+
+
+function reverseStr(someString) {
+    if (typeof(someString) !== "string") {
+        console.log("Error!");
+    }
+    console.log(someString.split("").reverse().join(""));
+}
+
+
+
+const baseCurrencies = ['USD', 'EUR'];
+const additionalCurrencies = ['UAH', 'RUB', 'CNY'];
+
+function avaiableCurr(arr, missingCurrencies) {
+    console.log(arr.length);
+    if (arr.length == 0) {
+        console.log("There is no avaiable currencies.");
+        return;
+    }
+    let res = "Avaiable Currencies: \n";
+    for (let i = 0; i < arr.length; i++) {
+        let check = true;
+        for(let j = 0; j < missingCurrencies.length; j++)
+        {
+            console.log(`${arr[i]} == ${missingCurrencies[j]}`);
+            if(arr[i] == missingCurrencies[j]) {
+                check = false;
+            }
+        }
+        if (check) {
+            res += arr[i] + "\n";
+        }
+    }
+    console.log(res);
+}
+
+function task13(firstPar, Curr1, Curr2) {
+    reverseStr(firstPar);
+    avaiableCurr([...Curr1, ...Curr2], ["CNY"]);
+}
+
+task13("This girl is up to something!", baseCurrencies, additionalCurrencies);

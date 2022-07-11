@@ -74,10 +74,18 @@ definePersonalLevel();
 rememberMyFilms();
 showMyDB();
 writeYourGenres();
+
+
+
+
+
+
+
+
+
+
+
 /*
-console.log( undefined || 2 || undefined );
-
-
 // Работа с метками:
 // label:
 //     statement
@@ -89,5 +97,4 @@ foo: {
   break foo;
   console.log('эта строка не будет исполнена');
 }
-
 */
