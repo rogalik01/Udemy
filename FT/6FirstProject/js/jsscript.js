@@ -11,10 +11,14 @@
     return a + b;
 }
 */
+
+// Ctrl + Shift + L - выделить все вхождения выделенной строки
+
+
 function safeStringReader (message) {
     let data;
     while (true) {
-        data = prompt(message, "");
+        data = prompt(message, "").trim();
         if (data != "" && data != null && data.length <= 50) {
             return data;
         } else {
@@ -54,7 +58,7 @@ function showMyDB() {
 }
 function writeYourGenres() {
     for (let i = 1; i <= 3; i++) {
-        personalMovieDB.genres[i - 1] = prompt(`Your favorite genre numder ${i}`);
+        personalMovieDB.genres[i - 1] = prompt(`Your favorite genre numder ${i}`).trim();
     }
 }
 const personalMovieDB = {
@@ -86,37 +90,4 @@ foo: {
   console.log('эта строка не будет исполнена');
 }
 
-let arr = [5, 5, "Строка", 9, 8, "Строка побольше", 13];
-let result = [];
-for (let i = 0; result.length != arr.length; i++) {
-    if(typeof(arr[i]) == "string") {
-        result[i] = arr[i] + " done";
-    } else {
-        result[i] = +arr[i] * 2;
-    }
-}
-console.log(arr);
-console.log(result);
-for (let i = 0; i < arr.length; i++) {
-    result[i] = arr[arr.length - i - 1];
-}
-console.log(result);
-
-    Методы для работы со строками:
-.toLowerCase()
-.toUpperCase()
-.indexOf() - поиск индекса, с которого начинается подстрока (При отсутствии возвращает -1)
-.slice(a, b) - с какого по какой индекс вернуть часть строки (b не включается)
-    если b не указано, то строка вырезается до конца
-    при указании в a и b отриательных значений отсчёт идёт с концап строки влево
-.substring(a, b) - аналогично .slice(), Но не поддерживает отрицательные значения и a не может быть больше b
-.substr(a, b) - аналогично .substring, но в качестве b указывается длина вырезаемого отрезка
-
-    Методы для работы с числами:
-Math.round(a) - округление а до ближайшего целого
-parceInt(a) - получение целого числа из строки
-    Пример: const test  = "12.2px";
-            console.log(parseInt(test));
-    Результат: 12
-parceFloat(a) - получение дробного числа из строки
 */
