@@ -62,7 +62,7 @@ const add = {
 console.log(Object.assign(numbers, add)); //соединение объектов. Возвращает новую структуру 
 const clone = Object.assign({}, add); // получаем копию объекта
 clone.d = 100;
-console.log(add); //соединение объектов. Возвращает новую структуру 
+console.log(add);
 console.log(clone);
 
 const oldArray = ['a', 'b', 'c'];
