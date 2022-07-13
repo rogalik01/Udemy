@@ -108,8 +108,8 @@ function showExperience(plan) {
 }
 
 function showProgrammingLangs(plan) {
-    for (let i in plan["langs"]) {
-        console.log(`Language ${i} is studied by ${plan["langs"][i]}`);
+    for (let i in plan.langs) {
+        console.log(`Language ${i} is studied by ${plan.langs[i]}`);
     }
 }
 
@@ -196,4 +196,24 @@ function task13(firstPar, Curr1, Curr2) {
     avaiableCurr([...Curr1, ...Curr2], ["CNY"]);
 }
 
-task13("This girl is up to something!", baseCurrencies, additionalCurrencies);
+
+function task14() {
+    sortStudentsByGroups(['Peter', 'Andrew', 'Ann', 'Mark', 'Josh', 'Sandra', 'Cris', 'Bernard', 'Takesi', 'Sam']);
+}
+
+function sortStudentsByGroups(strArr) {
+    let res = [];
+    let tmp = [];
+    strArr.sort();
+    strArr.forEach( (value, index) => {
+        tmp.push(value);
+        if((index + 1) % 3 == 0) {
+            res.push(tmp);
+            tmp = [];
+        }
+    });
+    res.push(`The rest of the students: ${tmp.join(", ")}`);
+    console.log(`Our teams:\n${res.join("\n")}`);
+}
+
+task14();
