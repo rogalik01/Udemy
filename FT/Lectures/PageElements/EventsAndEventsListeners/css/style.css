@@ -1,0 +1,19 @@
+button {
+    background-color: rgb(12, 216, 12);
+    border-radius: 30px;
+    margin: 22px 20px;
+    height: 50px;
+    width: 120px;
+    color: aliceblue;
+}
+
+wrapper {
+    margin-left: 100px;
+    margin-right: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+a {
+    display: block;
+}

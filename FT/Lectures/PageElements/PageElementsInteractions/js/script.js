@@ -11,7 +11,7 @@ console.dir(box);
 box.style.backgroundColor = 'green';
 box.style.width = "500px";
 const num = 500;
-box.style.cssText = `background-color: purple; width: ${num}px`; // inline style (удобно для смены сразу нескольких стилей)
+box.style.cssText = `background-color: purple; width: ${num}px`; // inline (удобно для смены сразу нескольких стилей)
 
 btns[1].style.borderRadius = '100%';
 circles[1].style.backgroundColor = 'purple';
@@ -54,6 +54,10 @@ wrapper.append(div);
 
 // Один элемент заменяем другим
 // hearts[0].replaceWith(circles[0]);
+
+
+
+
 
 /// Устаревшие конструкции
 //  wrapper.appendChild(div);
