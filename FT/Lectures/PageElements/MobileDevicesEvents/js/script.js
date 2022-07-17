@@ -10,7 +10,7 @@
 // (когда, например, палец уходит за пределы браузера)
 
 window.addEventListener('DOMContentLoaded', () => {
-    const box = document.querySelector('.box');
+    const box = document.querySelector('.box'); //
 
     box.addEventListener('touchstart', (e) => {
         e.preventDefault(); // рекомендуется всегда ипользовать при работе с мобильными устройствами
