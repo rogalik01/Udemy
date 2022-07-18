@@ -22,8 +22,8 @@ window.addEventListener('DOMContentLoaded', () => {
     box.addEventListener('touchmove', (e) => {
         e.preventDefault(); // рекомендуется всегда ипользовать при работе с мобильными устройствами
 
-        console.log(e.targetTouches[0].pageX); // Если пересекаем определённую границу, то можно, например, сменить слайд
-    });
+        console.log(e.targetTouches[0].pageX); // Если пересекаем определённую границу, то можно, например, 
+    }); // сменить слайд
 
     // box.addEventListener('touchend', (e) => {
     //     e.preventDefault(); // рекомендуется всегда ипользовать при работе с мобильными устройствами

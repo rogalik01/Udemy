@@ -3,13 +3,13 @@
 	"indent": 2,
 	"undef": true,
 	"quotmark": false,
-	"maxlen": 120,
+	"maxlen": 140,
 	"trailing": true,
 	"curly": true,
 	"strict": false,
 	"browser": true,
 	"devel": true,
 	"jquery": true,
-    "esversion": 9,
+    "esversion": 11,
     "node": true
 }
