@@ -28,3 +28,8 @@ console.log(products);
 products.sort(); // Регистр влияет на сортировку. Заглавные буквы будут "выше" по значимости
 console.log(products.join(";\n")); // обратная операция
 
+/* 
+function unique(arr) { // удаляем из массива повторяющиеся значения
+    return Array.from(new Set(arr));
+}
+*/
