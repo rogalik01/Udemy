@@ -52,7 +52,7 @@ function intInput(str, question) {
     return +str;
 }
 function isPangram(string) {
-    let strSet = new Set(string.toLowerCase().replace(/\s/g, ''))
+    let strSet = new Set(string.toLowerCase().replace(/\s/g, ''));
     return (strSet.size == 26) ? true : false;
 }
 function amountOfPages(number) {
