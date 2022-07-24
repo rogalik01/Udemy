@@ -43,7 +43,7 @@ window.addEventListener('DOMContentLoaded', () => {
     
 
     // Timer
-    const deadline = '2022-07-21';
+    const deadline = '2022-07-28';
 
     function getTimeRemaining(endTime) {
         const t = Date.parse(endTime) - Date.parse(new Date()), // разница между дедлайном и нынешним временем
@@ -88,18 +88,66 @@ window.addEventListener('DOMContentLoaded', () => {
             seconds.innerHTML = getZero(t.seconds);
 
             if (t.total <= 0) {
+                clearInterval(timeInterval);
                 days.innerHTML = '00';
                 hours.innerHTML = '00';
                 minutes.innerHTML = '00';
                 seconds.innerHTML = '00';
-                clearInterval(timeInterval);
             }
         }
     }
     setClock('.timer', deadline);
-    const nowTime = setInterval(function() {
-        console.log(new Date());
-        console.log(new Date('2022-07-21'));
-        console.log("");
-    }, 1000);
+
+
+
+
+
+    // Модальные окна
+    const modalTrigger = document.querySelectorAll('[data-modal]'),
+          modal = document.querySelector('.modal'),
+          modalCloseBtn = document.querySelector('[data-close]');
+
+    function openModal() {
+        modal.classList.add('show');
+        modal.classList.remove('hide');
+        //modal.classList.toggle('show');
+        document.body.style.overflow = 'hidden'; // при открытии модального окна запрещаем прокручивание страницы
+        clearInterval(modalTimerId); // очищаем Интервал, если пользователь уже открывал модальное окно
+    }
+
+    modalTrigger.forEach((item) => {
+        item.addEventListener('click', openModal);
+    });
+
+    function closeModal(item) {
+        modal.classList.add('hide');
+        modal.classList.remove('show'); 
+        document.body.style.overflow = '';
+    }
+
+    modalCloseBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) { // именно модальное окно, а не modal__dialog
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if(e.code === 'Escape' && modal.classList.contains('show')) { // код нажатой клавиши (гуглим http://keycode.info) 
+            closeModal();
+        }
+    });
+
+    const modalTimerId = setTimeout(openModal, 15000); // спустя 15 секунд после открытия сайта окно открывается самостоятельно
+
+    function showModalByScroll() {
+        if (window.pageYOffset /* прокрученная часть */ + document.documentElement.clientHeight/* видимая часть без прокрутки */ >= document.
+        documentElement.scrollHeight - 1) { // высота с учётом прокрутки
+            openModal();
+            window.removeEventListener('scroll', showModalByScroll); // сделали отдельную функцию, чтобы было возможно удалить обработчик
+        }
+    }
+
+    window.addEventListener('scroll', showModalByScroll); // {once: true} в arg3, чтобы не открывалось каждый раз после прокрутки
 });
