@@ -104,8 +104,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Модальные окна
     const modalTrigger = document.querySelectorAll('[data-modal]'),
-          modal = document.querySelector('.modal'),
-          modalCloseBtn = document.querySelector('[data-close]');
+          modal = document.querySelector('.modal');
 
     function openModal() {
         modal.classList.add('show');
@@ -125,10 +124,8 @@ window.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
     }
 
-    modalCloseBtn.addEventListener('click', closeModal);
-
     modal.addEventListener('click', (event) => {
-        if (event.target === modal) { // именно модальное окно, а не modal__dialog
+        if (event.target === modal || event.target.getAttribute('data-close') == '') { // именно модальное окно, а не modal__dialog
             closeModal();
         }
     });
@@ -248,4 +245,117 @@ window.addEventListener('DOMContentLoaded', () => {
         ".menu .container",
         'menu__item'
     ).render();
+
+
+
+    // Forms        Shift+F5 - сбросить кэш страницы
+    const forms = document.querySelectorAll('form') ;
+
+    const message = {
+        loading: 'img/form/spinner.svg',
+        success: "Thanks! We'll contact with you soon!",
+        failure: 'Something went wrong...'
+    };
+
+    forms.forEach(item => {
+        postData(item);
+    });
+
+    function postData(form) {
+        // form.addEventListener('submit', (e) => { // срабатывает каждый раз, когда пытаемся отправить какую-нибудь форму
+        //     e.preventDefault();                  // enter или клик мыши по button
+
+        //     const statusMessage = document.createElement('div');
+        //     statusMessage.classList.add('status');
+        //     statusMessage.textContent = message.loading;
+        //     form.append(statusMessage);
+
+        //     const request = new XMLHttpRequest();
+        //     request.open('POST', 'server.php');
+
+        //     request.setRequestHeader('undefined', 'multipart/form-data'); // заголовок при работе не с JSON устанавливать не нужно
+        //     const formData = new FormData(form); // в вёртске у каждого инпута (input, checkbox и т.д.) обязательно должен указываться атрибут name
+
+        //     request.send(formData);
+
+        //     request.addEventListener('load', () => {
+        //         if (request.status === 200) {
+        //             console.log(request.response);
+        //             statusMessage.textContent = message.success;
+        //             form.reset(); // сбрасываем форму
+        //             setTimeout(() => {
+        //                 statusMessage.remove();
+        //             }, 5000);
+        //         } else {
+        //             statusMessage.textContent = message.failure;
+        //         }
+        //     });
+
+        // });
+
+
+        // вариант через JSON
+        form.addEventListener('submit', (e) => { // срабатывает каждый раз, когда пытаемся отправить какую-нибудь форму
+            e.preventDefault();                  // enter или клик мыши по button
+
+            const statusMessage = document.createElement('img');
+            statusMessage.src = message.loading;
+            statusMessage.style.cssText =`
+                display: block;
+                margin: 0 auto; 
+            `; // располагаем по центру
+            form.insertAdjacentElement("afterend", statusMessage); // arg1 - куда, arg2 - что
+
+            const request = new XMLHttpRequest();
+            request.open('POST', 'server.php');
+
+            request.setRequestHeader('Content-type', 'application/json'); // заголовок при работе не с JSON устанавливать не нужно
+            const formData = new FormData(form); // в вёртске у каждого инпута (input, checkbox и т.д.) обязательно должен указываться атрибут name
+
+            const object = {};
+            formData.forEach(function(value,key){
+                object[key] = value;
+            });
+
+            const json = JSON.stringify(object);
+
+            request.send(json);
+
+            request.addEventListener('load', () => {
+                if (request.status === 200) {
+                    console.log(request.response);
+                    showThanksModal(message.success);
+                    form.reset(); // сбрасываем форму
+                    statusMessage.remove();
+                } else {
+                    showThanksModal(message.failure);
+                }
+            });
+
+        });
+    }
+
+    function showThanksModal(message) {
+        const previousModalDialog = document.querySelector('.modal__dialog');
+        
+        previousModalDialog.classList.add('hide');
+        openModal();
+
+        const thanksModal = document.createElement('div');
+        thanksModal.classList.add('modal__dialog');
+        thanksModal.innerHTML = `
+            <div class="modal__content">
+                <div class="modal__close" data-close>×</div>
+                <div class="modal__title">${message}</div>
+            </div>
+        `;
+
+        document.querySelector('.modal').append(thanksModal);
+        setTimeout(() => {
+            thanksModal.remove();
+            previousModalDialog.classList.add('show');
+            previousModalDialog.classList.remove('hide');
+            closeModal();
+        }, 5000);
+    }
 });
