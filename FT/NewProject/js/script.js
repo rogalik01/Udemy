@@ -136,7 +136,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const modalTimerId = setTimeout(openModal, 15000); // спустя 15 секунд после открытия сайта окно открывается самостоятельно
+    const modalTimerId = setTimeout(openModal, 150000000); // спустя 15 секунд после открытия сайта окно открывается самостоятельно
 
     function showModalByScroll() {
         if (window.pageYOffset /* прокрученная часть */ + document.documentElement.clientHeight/* видимая часть без прокрутки */ >= document.
@@ -295,6 +295,48 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
         // вариант через JSON
+        // form.addEventListener('submit', (e) => { // срабатывает каждый раз, когда пытаемся отправить какую-нибудь форму
+        //     e.preventDefault();                  // enter или клик мыши по button
+
+        //     const statusMessage = document.createElement('img');
+        //     statusMessage.src = message.loading;
+        //     statusMessage.style.cssText =`
+        //         display: block;
+        //         margin: 0 auto; 
+        //     `; // располагаем по центру
+        //     form.insertAdjacentElement("afterend", statusMessage); // arg1 - куда, arg2 - что
+
+        //     const request = new XMLHttpRequest();
+        //     request.open('POST', 'server.php');
+
+        //     request.setRequestHeader('Content-type', 'application/json'); // заголовок при работе не с JSON устанавливать не нужно
+        //     const formData = new FormData(form); // в вёртске у каждого инпута (input, checkbox и т.д.) обязательно должен указываться атрибут name
+
+        //     const object = {};
+        //     formData.forEach(function(value,key){
+        //         object[key] = value;
+        //     });
+
+        //     const json = JSON.stringify(object);
+
+        //     request.send(json);
+
+        //     request.addEventListener('load', () => {
+        //         if (request.status === 200) {
+        //             console.log(request.response);
+        //             showThanksModal(message.success);
+        //             form.reset(); // сбрасываем форму
+        //             statusMessage.remove();
+        //         } else {
+        //             showThanksModal(message.failure);
+        //         }
+        //     });
+
+        // });
+    // }
+
+
+        // Вариант через fetch
         form.addEventListener('submit', (e) => { // срабатывает каждый раз, когда пытаемся отправить какую-нибудь форму
             e.preventDefault();                  // enter или клик мыши по button
 
@@ -306,10 +348,6 @@ window.addEventListener('DOMContentLoaded', () => {
             `; // располагаем по центру
             form.insertAdjacentElement("afterend", statusMessage); // arg1 - куда, arg2 - что
 
-            const request = new XMLHttpRequest();
-            request.open('POST', 'server.php');
-
-            request.setRequestHeader('Content-type', 'application/json'); // заголовок при работе не с JSON устанавливать не нужно
             const formData = new FormData(form); // в вёртске у каждого инпута (input, checkbox и т.д.) обязательно должен указываться атрибут name
 
             const object = {};
@@ -317,20 +355,34 @@ window.addEventListener('DOMContentLoaded', () => {
                 object[key] = value;
             });
 
-            const json = JSON.stringify(object);
-
-            request.send(json);
-
-            request.addEventListener('load', () => {
-                if (request.status === 200) {
-                    console.log(request.response);
-                    showThanksModal(message.success);
-                    form.reset(); // сбрасываем форму
-                    statusMessage.remove();
-                } else {
-                    showThanksModal(message.failure);
-                }
+            fetch('server.php', { // куда
+                method: "POST", // каким образом
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(object)
+            })
+            .then((data) => data.text())
+            .then(data => {
+                console.log(data);
+                showThanksModal(message.success);
+                statusMessage.remove();
+            }).catch(() => {
+                showThanksModal(message.failure);
+            }).finally(() => {
+                form.reset(); // сбрасываем форму
             });
+
+            // request.addEventListener('load', () => {
+            //     if (request.status === 200) {
+            //         console.log(request.response);
+            //         showThanksModal(message.success);
+            //         form.reset(); // сбрасываем форму
+            //         statusMessage.remove();
+            //     } else {
+            //         showThanksModal(message.failure);
+            //     }
+            // });
 
         });
     }
@@ -358,4 +410,26 @@ window.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }, 5000);
     }
+
+
+
+
+
+    // API - Application Programming Interface (готовые методы и свойства)
+    // DOM API - различные методы, позволяющие работать с элементами на странице
+    
+    // Будем разбирать Fetch API
+    // fetch('https://jsonplaceholder.typicode.com/todos/1') // классический get запрос, который обращатся к серверу (возвращает promise в формате json)
+    //     .then(response => response.json()) // преобразует json в js-объект (возвращает всё также promise)
+    //     .then(json => console.log(json));
+
+    // fetch('https://jsonplaceholder.typicode.com/posts', { // настройки запроса на post
+    //     method: "POST",
+    //     body:  JSON.stringify({name: 'ALex'}), // объект преобразуется в JSON-формат и отправляется при помощи fetch
+    //     headers: { // заголовки отправляемого объекта
+    //         'Content-type': 'application/json'
+    //     }
+    // })
+    //     .then(response => response.json()) 
+    //     .then(json => console.log(json));
 });
