@@ -418,4 +418,101 @@ window.addEventListener('DOMContentLoaded', () => {
     // npx json-server db.json  запускает json сервер и отображает несколько endpoint'ов, к которым в дальнейшем можно обращаться, т.е.
     // путей, куда можем делать запросы
 
+
+
+
+    // slider (первый простой вариант)
+    // const slides = document.querySelectorAll('.offer__slide'),
+    //       pointerLeft = document.querySelector('.offer__slider-prev'),
+    //       pointerRight = document.querySelector('.offer__slider-next');
+
+    // const totalAmountOfSlidePics = document.querySelector('#total');
+    // totalAmountOfSlidePics.innerHTML = getZero(slides.length);
+
+    // const currentNumberOfSlidePic = document.querySelector('#current');
+    // currentNumberOfSlidePic.innerHTML = '01';
+    // let slideIndex = 1;
+
+    // function showSlideContent(i = 0) {
+    //     slideIndex += i;
+    //     if (slideIndex < 1) {
+    //         slideIndex = slides.length;
+    //     } else if (slideIndex == slides.length + 1) {
+    //         slideIndex = 1;
+    //     }
+    //     currentNumberOfSlidePic.innerHTML = getZero(slideIndex);
+    //     slides.forEach(item => item.classList.add('hide'));
+    //     slides[slideIndex - 1].classList.add('show', 'fade');
+    //     slides[slideIndex - 1].classList.remove('hide');
+    // }
+    
+    // showSlideContent();
+
+    // pointerLeft.addEventListener('click', (e) => {
+    //     showSlideContent(-1);
+    // });
+
+    // pointerRight.addEventListener('click', (e) => {
+    //     showSlideContent(1);
+    // });
+
+    // slider (вариант карусели)
+    const slides = document.querySelectorAll('.offer__slide'),
+          prev = document.querySelector('.offer__slider-prev'),
+          next = document.querySelector('.offer__slider-next'),
+          total = document.querySelector('#total'),
+          current = document.querySelector('#current'),
+          slidesWrapper = document.querySelector('.offer__slider-wrapper'),
+          slidesField = document.querySelector('.offer__slider-inner'),
+          width = window.getComputedStyle(slidesWrapper).width; // получаем объект с вычисленными стилями и извлекаем ширину
+    let slideIndex = 1;
+    let offset = 0; // сколько уже отступили 
+
+    total.textContent = getZero(slides.length);
+    current.textContent = getZero(slideIndex);
+
+    slidesField.style.width = 100 * slides.length + '%'; // проценты ширины родителя
+    slidesField.style.display = 'flex';
+    slidesField.style.transition = "0.5s all";
+
+    slidesWrapper.style.overflow = 'hidden';
+
+    slides.forEach(slide => {
+        slide.style.width = width;
+    });
+
+    next.addEventListener('click', () => {
+        if (offset == +width.slice(0, -2) * (slides.length - 1)) { // последний слайд
+            offset = 0;
+        } else {
+            offset += +width.slice(0, -2); // с помощью slice вырезаем 'px'
+        }
+
+        slidesField.style.transform = `translateX(-${offset}px)`;
+
+        if(slideIndex == slides.length) {
+            slideIndex = 1;
+        } else {
+            slideIndex++;
+        }
+
+        current.textContent = getZero(slideIndex);
+    });
+
+    prev.addEventListener('click', () => {
+        if (offset == 0) {
+            offset = +width.slice(0, -2) * (slides.length - 1);
+        } else {
+            offset -= +width.slice(0, -2);
+        }
+
+        slidesField.style.transform = `translateX(-${offset}px)`;
+
+        if(slideIndex == 1) {
+            slideIndex = slides.length;
+        } else {
+            slideIndex--;
+        }
+        current.textContent = getZero(slideIndex);
+    });
 });
