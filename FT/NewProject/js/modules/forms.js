@@ -1,5 +1,8 @@
-function forms() {
-    const forms = document.querySelectorAll('form') ;
+import {closeModal, openModal} from './modal';
+import {postData} from '../services/services';
+
+function forms(formSelector, modalTimerId) {
+    const forms = document.querySelectorAll(formSelector) ;
 
     const message = {
         loading: 'img/form/spinner.svg',
@@ -10,19 +13,7 @@ function forms() {
     forms.forEach(item => {
         bindPostData(item);
     });
-
-    // выносим функционал по общению с сервером в отдельную функцию
-    const postData = async (url, data) => { // настраивает запрос, посылает его на сервер, получает ответ и трансформирует его в json
-        const res = await fetch(url, { // await позволяет дождаться окончания действия функции
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: data
-        });
-
-        return await res.json(); // promise
-    }; 
+    
 
     function bindPostData(form) { // отвечает за привязку постинга
         // Вариант через fetch
@@ -43,10 +34,10 @@ function forms() {
             postData('http://localhost:3000/requests', json)
             .then(data => {
                 console.log(data);
-                showThanksModal(message.success);
+                showThanksModal(message.success, modalTimerId);
                 statusMessage.remove();
             }).catch(() => {
-                showThanksModal(message.failure);
+                showThanksModal(message.failure, modalTimerId);
             }).finally(() => {
                 form.reset(); // сбрасываем форму
             });
@@ -65,11 +56,11 @@ function forms() {
         });
     }
 
-    function showThanksModal(message) {
+    function showThanksModal(message, modalTimerId) {
         const previousModalDialog = document.querySelector('.modal__dialog');
         
         previousModalDialog.classList.add('hide');
-        openModal();
+        openModal('.modal', modalTimerId);
 
         const thanksModal = document.createElement('div');
         thanksModal.classList.add('modal__dialog');
@@ -85,9 +76,9 @@ function forms() {
             thanksModal.remove();
             previousModalDialog.classList.add('show');
             previousModalDialog.classList.remove('hide');
-            closeModal();
+            closeModal('.modal');
         }, 5000);
     }
 }
 
-module.exports = forms;
+export default forms;

@@ -1,4 +1,4 @@
-function slider() {
+function slider({container, slide, nextArrow, prevArrow, totalCounter, currentCounter, wrapper, field}) {
     
     function getZero(num) {
         if (num >= 0 && num < 10) {
@@ -8,17 +8,17 @@ function slider() {
         }
     }
 
-    const slides = document.querySelectorAll('.offer__slide'),
-          prev = document.querySelector('.offer__slider-prev'),
-          next = document.querySelector('.offer__slider-next'),
-          total = document.querySelector('#total'),
-          current = document.querySelector('#current'),
-          slidesWrapper = document.querySelector('.offer__slider-wrapper'),
-          slidesField = document.querySelector('.offer__slider-inner'),
+    const slides = document.querySelectorAll(slide),
+          prev = document.querySelector(prevArrow),
+          next = document.querySelector(nextArrow),
+          total = document.querySelector(totalCounter),
+          current = document.querySelector(currentCounter),
+          slidesWrapper = document.querySelector(wrapper),
+          slidesField = document.querySelector(field),
           width = window.getComputedStyle(slidesWrapper).width; // получаем объект с вычисленными стилями и извлекаем ширину
     
     // Точки в слайдере
-    const slider = document.querySelector('.offer__slider');
+    const slider = document.querySelector(container);
 
     let slideIndex = 1;
     let offset = 0; // сколько уже отступили 
@@ -144,4 +144,4 @@ function slider() {
     });
 }
 
-module.exports = slider;
+export default slider;

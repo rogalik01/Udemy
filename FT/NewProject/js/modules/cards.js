@@ -1,3 +1,5 @@
+import {getResource} from '../services/services';
+
 function cards() {
     class MenuCard {
         constructor(src, alt, title, descr, price, parentSelector, ...classes) {
@@ -38,16 +40,6 @@ function cards() {
         }
     }
 
-    const getResource = async (url) => { // настраивает запрос, посылает его на сервер, получает ответ и трансформирует его в json
-        const res = await fetch(url);
-
-        if (!res.ok) {
-            throw new Error(`Couldn't fetch ${url}, status: ${res.status}`);
-        }
-
-        return await res.json(); // promise
-    };
-
     // Получение даннх с сервера обычным способом
     getResource('http://localhost:3000/menu') // возвращает обычный объект
         .then(data => {
@@ -57,4 +49,4 @@ function cards() {
         });
 }
 
-module.exports = cards;
+export default cards;

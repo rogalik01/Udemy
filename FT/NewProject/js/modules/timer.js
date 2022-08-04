@@ -1,6 +1,6 @@
-function timer() {
-    const deadline = '2022-07-28';
+import {getZero} from '../services/services';
 
+function timer(id, deadLine) {
     function getTimeRemaining(endTime) {
         const t = Date.parse(endTime) - Date.parse(new Date()), // разница между дедлайном и нынешним временем
         days = Math.floor(t / (1000 * 60 * 60 * 24)),
@@ -15,14 +15,6 @@ function timer() {
             'minutes': minutes,
             'seconds': seconds,
         };
-    }
-
-    function getZero(num) {
-        if (num >= 0 && num < 10) {
-            return `0${num}`;
-        } else {
-            return num;
-        }
     }
 
     function setClock(selector, endtime) {
@@ -52,7 +44,7 @@ function timer() {
             }
         }
     }
-    setClock('.timer', deadline);
+    setClock(id, deadLine);
 }
 
-module.exports = timer;
+export default timer;
