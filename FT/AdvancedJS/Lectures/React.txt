@@ -1,0 +1,9 @@
+React:
+- Препроцессор JSX
+- Babel
+- Webpack
+- node.js
+- React
+
+
+Смешивает js и html
