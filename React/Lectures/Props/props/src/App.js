@@ -13,7 +13,7 @@ import './App.css';
 
 
 // Приступаем к динамическому изменению свойств на примере классов
-import { Component } from 'react';
+import { Component, Fragment } from 'react';
 
 class WhoAmI extends Component { // props - Объект
     constructor(props) {
@@ -56,7 +56,7 @@ class WhoAmI extends Component { // props - Объект
         const {name, surname, link} = this.props;
         const {position, years} = this.state;
         return (
-        <div>
+        <>
             <button onClick={this.nextYear}>{this.state.text}</button>
             {/* <button onClick={() => this.nextYear()}>{this.state.text}</button> ещё один способ сохранения контекста вызова*/}
             <h1>My name is {name}, 
@@ -69,10 +69,12 @@ class WhoAmI extends Component { // props - Объект
                 {/* <input type="text" onChange={this.commitInputChanges}/> */}
                 <input type="text" onChange={(e) => this.commitInputChanges(e, 'some color')}/> {/* Такая констркукция позволяет передавать аргументы помимо объекта события */}
             </form>
-        </div>
+        </>
     )
     }
 }
+
+// React.Fragment key = '123' если необходимо тобавить аргумент
 
 function App() {
   return (

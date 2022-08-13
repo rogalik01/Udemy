@@ -14,7 +14,10 @@ const EmployeesListItem = (props) => {
     return (
         // <li className={"list-group-item d-flex justify-content-between" + (increase ? " increase" : "")}>
         <li className={classNames}>
-            <span onClick={onToggleProp} className="list-group-item-label" data-toggle="rise">{name}</span>
+            <span onClick={onToggleProp}
+                className="list-group-item-label" 
+                data-toggle="rise"
+                style={{fontSize: '40px', color: 'red'}}>{name}</span> {/* Для указани inline-стилей React использует объекты */}
             <input type="text" className="list-group-item-input" defaultValue={salary + '$'}/>
             <div className='d-flex justify-content-center align-items-center'>
                 <button type="button"           

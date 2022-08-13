@@ -11,11 +11,9 @@ class EmployeesAddForm extends Component {
     }
 
     onValueChange = (e) => {
-        console.log([e.target.name]);
         this.setState({
             [e.target.name]: e.target.value // свойство в объект можно записать ч/з [] 
         })
-        console.log([e.target.name]);
     }
 
     onSubmit = (e) => {
