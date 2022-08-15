@@ -121,7 +121,6 @@ class App extends Component {
                     <SearchPanel onUpdateSearch={this.onUpdateSearch}/>
                     <AppFilter onUpdateFilter={this.onUpdateFilter} filter={filter}/>
                 </div>
-    
                 <EmployeesList 
                     data={filteredData}
                     onDelete={this.deleteItem}
