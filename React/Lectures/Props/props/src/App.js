@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-import { Component, /* Fragment */ } from 'react';
+import React, { Component, /* Fragment */ } from 'react';
+import BootstrapTest from './BootstrapTest';
 
 import './App.css';
 
@@ -110,14 +111,50 @@ const Wrapper = styled.div`
     margin: 80px auto 0 auto
 `;
 
+const DynamicGreating = (props) => {
+    return (
+        <div className={'mb-3 p-3 border border-' + props.color}>
+            {
+                React.Children.map(props.children, child => {
+                    return React.cloneElement(child, {className: 'shadow p-3 m-3 border rounded'})// arg1 - сам элемент, arg2 - массив с новыми пропсами для этого элемента,  
+                })                                                                                // arg3 - массив наследников нового элемента?
+            }
+        </div>
+    )
+}
+
+const HelloGreating = () => {
+    return (
+        <div style={{'width': '600px', 'margin': '0 auto'}}>
+            <DynamicGreating color={'primary'}>
+                <h2>Hello World!</h2>
+            </DynamicGreating>
+        </div>
+    )
+}
 
 function App() {
-  return (
-    <Wrapper>
-      <WhoAmI name="John" surname='Smith' link="facebook.com"/>
-      <WhoAmI name='Alex' surname='Shepard' link="vk.com"/>
-    </Wrapper>
-  );
+    return (
+        <Wrapper>
+            <HelloGreating/>
+            <BootstrapTest
+                left = {
+                    <DynamicGreating color={'primary'}>
+                        <h2>This weel was hard</h2>
+                        <h2>Hello World!</h2>
+                    </DynamicGreating>
+                }
+                right = {
+                    <DynamicGreating color={'primary'}>
+                        <h2>RIGHT</h2>
+                    </DynamicGreating>
+                }
+            />
+
+            <WhoAmI name="John" surname='Smith' link="facebook.com"/>
+            <WhoAmI name='Alex' surname='Shepard' link="vk.com"/>
+        </Wrapper>
+    );
 }
 
 export default App;

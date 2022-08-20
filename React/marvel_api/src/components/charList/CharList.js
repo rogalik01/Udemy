@@ -2,6 +2,8 @@ import { Component } from 'react';
 import './charList.scss';
 import Spinner from '../spinner/Spinner';
 
+import PropTypes from 'prop-types'
+
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import MarvelService from '../../services/MarvelService';
 
@@ -10,23 +12,53 @@ class CharList extends Component {
     state = {
         characters: [],
         loading: true,
-        error: false
+        error: false,
+        newItemLoading: false,
+        offset: 210,
+        charEnded: false
     }
 
     marvelService = new MarvelService();
 
     componentDidMount() {
-        this.marvelService
-            .getAllCharacters()
+        window.addEventListener('scroll',  this.onScroll);
+        this.onRequest();
+    }
+
+    onScroll = () => {
+        if (!this.state.newItemLoading &&
+            (window.pageYOffset // прокрученная часть
+            + document.documentElement.clientHeight // видимая часть без прокрутки 
+            >= document.documentElement.scrollHeight - 1)) { // высота с учётом прокрутки
+
+                this.onRequest(this.state.offset);
+        }
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.onScroll);
+    }
+
+    onRequest = (offset) => {
+        this.setState({newItemLoading: true});
+        this.marvelService.getAllCharacters(offset)
             .then(this.onCharListLoaded)
             .catch(this.onError)
     }
 
-    onCharListLoaded = (characters) => {
-        this.setState({
-            characters,
-            loading: false
-        });
+    onCharListLoaded = (newCharacters) => {
+        let ended = false;
+        if (newCharacters.length < 9) {
+            ended = true;
+        }
+
+        this.setState(({offset, characters}) => ({
+            characters: [...characters, ...newCharacters],
+            loading: false,
+            newItemLoading: false,
+            offset: offset + 9,
+            charEnded: ended
+        }));
     }
 
     onError = (res) => {
@@ -37,7 +69,7 @@ class CharList extends Component {
     }
 
     render() {
-        const {loading, error} = this.state;
+        const {loading, newItemLoading, offset, charEnded, error} = this.state;
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
         const content = !(loading || error) ? this.view() : null;
@@ -47,7 +79,11 @@ class CharList extends Component {
                 {errorMessage}
                 {spinner}
                 {content}
-                <button className="button button__main button__long">
+                <button
+                    className="button button__main button__long"
+                    disabled={newItemLoading}
+                    style={{'display': charEnded ? 'none' : 'block'}}
+                    onClick={() => this.onRequest(offset)}>
                     <div className="inner">load more</div>
                 </button>
             </div>
@@ -78,6 +114,10 @@ class CharList extends Component {
             </ul>
         )
     }
+}
+
+CharList.propTypes = {
+    onCharSelected: PropTypes.func.isRequired
 }
 
 export default CharList;

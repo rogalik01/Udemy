@@ -1,10 +1,10 @@
 import {Container, Row, Col, Carousel, Form, Button} from 'react-bootstrap';
-const BootstrapTest = () => {
+const BootstrapTest = (props) => {
     return (
         <Container className='mt-5 mb-5'>
         <Row>
             <Col>
-                <Form>
+                {/* <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" />
@@ -23,10 +23,12 @@ const BootstrapTest = () => {
                     <Button variant="primary" type="submit">
                         Submit
                     </Button>
-                </Form>
+                </Form> */}
+                    {props.left}
             </Col>
             <Col>
-                <Carousel>
+                    {props.right}
+                {/* <Carousel>
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
@@ -62,7 +64,7 @@ const BootstrapTest = () => {
                             </p>
                         </Carousel.Caption>
                     </Carousel.Item>
-                </Carousel>
+                </Carousel> */}
             </Col>
         </Row>
       </Container>
