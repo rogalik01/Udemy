@@ -15,7 +15,8 @@ class CharList extends Component {
         error: false,
         newItemLoading: false,
         offset: 210,
-        charEnded: false
+        charEnded: false,
+        selectedItem: null
     }
 
     marvelService = new MarvelService();
@@ -91,18 +92,31 @@ class CharList extends Component {
     }
 
     view = () => {
-        const elements = this.state.characters.map(item => {
+        const elements = this.state.characters.map((item, i) => {
             const {thumbnail, name, id} = item;
-            let style = 'cover';
+            let style = {'objectFit': 'cover'};
             if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
-                style = 'unset';
+                style = {'objectFit': 'unset'};
             }
             return (
                 <li 
-                    className="char__item"
+                    tabIndex={0}
+                    ref={this.setRef}
+                    className={"char__item " + (this.selectedItem === i ? 'char__item_selected' : '' )}
                     key={id}
-                    onClick={() => this.props.onCharSelected(id)}>
-                        <img src={thumbnail} style={{'objectFit' :style}} alt={name}/>
+                    onClick={(elem) => {
+                            this.props.onCharSelected(id);
+                            this.selectedItem = i;
+                            this.itemRefs[i].focus();
+                        }}
+                    onKeyPress={(e) => {
+                        if (e.key === ' ' || e.key === "Enter") {
+                            this.props.onCharSelected(id);
+                            this.selectedItem = i;
+                            this.itemRefs[i].focus();
+                        }
+                    }}>
+                        <img src={thumbnail} style={style} alt={name}/>
                         <div className="char__name">{name}</div>
                 </li>
             )
@@ -113,6 +127,12 @@ class CharList extends Component {
                 {elements}
             </ul>
         )
+    }
+
+    itemRefs = [];
+
+    setRef = (ref) => {
+        this.itemRefs.push(ref);
     }
 }
 
