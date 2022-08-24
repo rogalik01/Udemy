@@ -1,54 +1,95 @@
-import { Component } from 'react';
-import ReactDOM from 'react-dom/client';
+import { /* Component, */ useState } from 'react';
+// import ReactDOM from 'react-dom/client';
 
 
-class App extends Component {
-    constructor(props) {
-        super(props);
+// class App extends Component {
+//     constructor(props) {
+//         super(props);
 
-        this.state = {
-            counterValue: this.props.value
-        }
-    }
+//         this.state = {
+//             counterValue: this.props.value
+//         }
+//     }
     
-    setValue = (numb) => {
+//     setValue = (numb) => {
+//         if (numb <= 50 && numb >= -50) {
+//             this.setState({
+//                 counterValue: numb
+//             })
+//         }
+//     }
+
+//     increment = () => {
+//         this.setValue(this.state.counterValue + 1)
+//     }
+    
+//     decrement = () => {
+//         this.setValue(this.state.counterValue - 1)
+//     }
+
+//     getRandomInt = () => {
+//         this.setValue(Math.floor(-50 + Math.random() * 100))
+//     }
+
+//     reset = () => {
+//         this.setValue(this.props.value)
+//     }
+
+
+//     render() {
+//         return (
+//             <div class="app">
+//                 <div class="counter">{this.state.counterValue}</div>
+//                 <div class="controls">
+//                     <button onClick={this.increment}>INC</button>
+//                     <button onClick={this.decrement}>DEC</button>
+//                     <button onClick={this.getRandomInt}>RND</button>
+//                     <button onClick={this.reset}>RESET</button>
+//                 </div>
+//             </div>
+//         )
+//     }
+// }
+
+
+const App = ({value}) => {
+
+    const [counterValue, setCounterValue] = useState(value);
+    
+    function changeCounterValue(numb) {
         if (numb <= 50 && numb >= -50) {
-            this.setState({
-                counterValue: numb
-            })
+            setCounterValue(counterValue => numb);
         }
     }
 
-    increment = () => {
-        this.setValue(this.state.counterValue + 1)
+    function increment() {
+        changeCounterValue(counterValue + 1)
     }
     
-    decrement = () => {
-        this.setValue(this.state.counterValue - 1)
+    function decrement() {
+        changeCounterValue(counterValue - 1)
     }
 
-    getRandomInt = () => {
-        this.setValue(Math.floor(-50 + Math.random() * 100))
+    function getRandomInt() {
+        changeCounterValue(Math.floor(-50 + Math.random() * 100))
     }
 
-    reset = () => {
-        this.setValue(this.props.value)
+    function reset() {
+        changeCounterValue(value)
     }
 
 
-    render() {
-        return (
-            <div class="app">
-                <div class="counter">{this.state.counterValue}</div>
-                <div class="controls">
-                    <button onClick={this.increment}>INC</button>
-                    <button onClick={this.decrement}>DEC</button>
-                    <button onClick={this.getRandomInt}>RND</button>
-                    <button onClick={this.reset}>RESET</button>
+    return (
+            <div className="app">
+                <div className="counter">{counterValue}</div>
+                <div className="controls">
+                    <button onClick={increment}>INC</button>
+                    <button onClick={decrement}>DEC</button>
+                    <button onClick={getRandomInt}>RND</button>
+                    <button onClick={reset}>RESET</button>
                 </div>
             </div>
-        )
-    }
+    )
 }
   
   // 1) Начальное значение счетчика должно передаваться через props
