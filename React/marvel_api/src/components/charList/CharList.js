@@ -31,7 +31,6 @@ class CharList extends Component {
             (window.pageYOffset // прокрученная часть
             + document.documentElement.clientHeight // видимая часть без прокрутки 
             >= document.documentElement.scrollHeight - 1)) { // высота с учётом прокрутки
-
                 this.onRequest(this.state.offset);
         }
     }

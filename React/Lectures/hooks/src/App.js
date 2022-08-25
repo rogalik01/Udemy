@@ -1,4 +1,4 @@
-import {/* Component,  */useState, useEffect, useCallback} from 'react';
+import {/* Component,  */useState, useEffect, useCallback, useMemo} from 'react';
 import {Container} from 'react-bootstrap';
 import './App.css';
 
@@ -63,6 +63,11 @@ import './App.css';
 //     return Math.random() * 49 + 1;
 // }
 
+const countTotal = (num) => {
+    console.log('counting');
+    return num + 10;
+}
+
 const Slider = (props) => {
 
 
@@ -73,11 +78,11 @@ const Slider = (props) => {
     const [autoplay, setAutoplay] = useState(false);
 
     function logging() {
-        console.log('log');
+        // console.log('log');
     }
 
     useEffect(() => {
-        console.log('effect');
+        // console.log('effect');
         document.title = `Slide: ${slide}`;
 
         window.addEventListener('click', logging);
@@ -117,6 +122,18 @@ const Slider = (props) => {
         ]
     }, []);
 
+    const total = useMemo(() => { // нельзя помещать побочные эффекты (запросы и подписки)
+        return countTotal(slide);
+    }, [slide]);
+
+    const style = useMemo(() => ({ // необходимо использовать useMemo, т.к. каждый раз будет создаваться новый массив с другой ссылкой
+        color: slide > 4 ? 'red' : 'black'
+    }), [slide])
+
+    useEffect(() => {
+        console.log('style');
+    }, [style]);
+
     return (
         <Container>
             <div className="slider w-50 m-auto">
@@ -130,9 +147,10 @@ const Slider = (props) => {
                     })
                 } */}
 
-                <Slide getSomeImages={getSomeImages}/>
+                {/* <Slide getSomeImages={getSomeImages}/> */}
 
                 <div className="text-center mt-5">Active slide {slide} <br/>{autoplay ? 'auto' : null}</div>
+                <div style={style} className="text-center mt-5">Total slides: {total}</div>
                 <div className="buttons mt-3">
                     <button 
                         className="btn btn-primary me-2"
