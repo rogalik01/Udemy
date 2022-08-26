@@ -1,5 +1,5 @@
 import { /* Component, */ useState } from 'react';
-// import ReactDOM from 'react-dom/client';
+import React from 'react';
 
 
 // class App extends Component {
@@ -52,43 +52,126 @@ import { /* Component, */ useState } from 'react';
 // }
 
 
-const App = ({value}) => {
 
-    const [counterValue, setCounterValue] = useState(value);
+
+
+
+
+
+
+
+
+
+
+// const App = ({value}) => {
+
+//     const [counterValue, setCounterValue] = useState(value);
     
-    function changeCounterValue(numb) {
-        if (numb <= 50 && numb >= -50) {
-            setCounterValue(counterValue => numb);
+//     function changeCounterValue(numb) {
+//         if (numb <= 50 && numb >= -50) {
+//             setCounterValue(counterValue => numb);
+//         }
+//     }
+
+//     function increment() {
+//         changeCounterValue(counterValue + 1)
+//     }
+    
+//     function decrement() {
+//         changeCounterValue(counterValue - 1)
+//     }
+
+//     function getRandomInt() {
+//         changeCounterValue(Math.floor(-50 + Math.random() * 100))
+//     }
+
+//     function reset() {
+//         changeCounterValue(value)
+//     }
+
+
+//     return (
+            // <div className="app">
+            //     <div className="counter">{counterValue}</div>
+            //     <div className="controls">
+            //         <button onClick={increment}>INC</button>
+            //         <button onClick={decrement}>DEC</button>
+            //         <button onClick={getRandomInt}>RND</button>
+            //         <button onClick={reset}>RESET</button>
+            //     </div>
+            // </div>
+//     )
+// }
+
+const useCounter = (min, max) => {
+    const [value, setValue] = useState(null);
+
+    const incCounter = () => {
+        if (value < max) {
+            setValue(value => value + 1)
+        }
+    }
+  
+    const decCounter = () => {
+        if (value > min) {
+            setValue(value => value - 1)
         }
     }
 
-    function increment() {
-        changeCounterValue(counterValue + 1)
-    }
-    
-    function decrement() {
-        changeCounterValue(counterValue - 1)
+    const rndCounter = () => {
+        setValue(+(Math.random() * (max - min) + min).toFixed(0))
     }
 
-    function getRandomInt() {
-        changeCounterValue(Math.floor(-50 + Math.random() * 100))
+    const resetCounter = () => {
+        setValue(min)
     }
 
-    function reset() {
-        changeCounterValue(value)
-    }
+    React.useEffect(() => {
+        fetch(`https://www.random.org/integers/?num=1&min=${min}&max=${max}&col=1&base=10&format=plain&rnd=new`)
+            .then(res => res.text())
+            .then(res => setValue(+res))
+            .catch(err => console.log(err))
+    }, [])
+      
+    return {value, incCounter, decCounter, rndCounter, resetCounter}
+}
 
+const Counter = () => {
+    const counter = useCounter(-10, 50);
 
     return (
-            <div className="app">
-                <div className="counter">{counterValue}</div>
-                <div className="controls">
-                    <button onClick={increment}>INC</button>
-                    <button onClick={decrement}>DEC</button>
-                    <button onClick={getRandomInt}>RND</button>
-                    <button onClick={reset}>RESET</button>
-                </div>
-            </div>
+      <div className="component">
+        <div className="counter">{counter.value}</div>
+        <div className="controls">
+          <button onClick={counter.incCounter}>INC</button>
+          <button onClick={counter.decCounter}>DEC</button>
+          <button onClick={counter.rndCounter}>RND</button>
+          <button onClick={counter.resetCounter}>RESET</button>
+        </div>
+      </div>
+    )
+}
+
+const RndCounter = () => {
+    const counter = useCounter(0, 30);
+
+    return (
+      <div className="component">
+        <div className="counter">{counter.value}</div>
+        <div className="controls">
+          <button onClick={counter.rndCounter}>RND</button>
+          <button onClick={counter.resetCounter}>RESET</button>
+        </div>
+      </div>
+    )
+}
+
+const App = () => {
+    return (
+        <>
+            <Counter/>
+            <RndCounter/>
+        </>
     )
 }
   

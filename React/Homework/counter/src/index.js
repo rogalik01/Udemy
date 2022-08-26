@@ -5,7 +5,5 @@ import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
-        <App value={10}/>
-    </React.StrictMode>
+    <App/>
 );

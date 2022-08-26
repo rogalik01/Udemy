@@ -5,19 +5,17 @@ import Spinner from '../spinner/Spinner';
 import PropTypes from 'prop-types'
 
 import ErrorMessage from '../errorMessage/ErrorMessage';
-import MarvelService from '../../services/MarvelService';
+import useMarvelService from '../../services/MarvelService';
 
 
 const CharList = (props) => {
     const [characters, setCharacters] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
     const [newItemLoading, setNewItemLoading] = useState(true);
     const [offset, setOffset] = useState(210);
     const [charEnded, setCharEnded] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
 
-    const marvelService = new MarvelService();
+    const {loading, error, getAllCharacters} = useMarvelService();
 
     useEffect(() => { // запускается уже после рендера, что позволяет нам использовать функции до их объявления
         window.addEventListener('scroll',  onScroll);
@@ -42,9 +40,8 @@ const CharList = (props) => {
     }
 
     const onRequest = (offset) => {
-        marvelService.getAllCharacters(offset)
+        getAllCharacters(offset)
             .then(onCharListLoaded)
-            .catch(onError)
     }
 
     const onCharListLoaded = (newCharacters) => {
@@ -54,15 +51,9 @@ const CharList = (props) => {
         }
 
         setCharacters(characters => [...characters, ...newCharacters]);
-        setLoading(loading => false);
         setNewItemLoading(newItemLoading => false);
         setOffset(offset => offset + 9);
         setCharEnded(charEnded => ended);
-    }
-
-    const onError = (res) => {
-        setLoading(loading => false);
-        setError(true);
     }
 
     const itemRefs = useRef([]);
@@ -108,13 +99,12 @@ const CharList = (props) => {
     
     const errorMessage = error ? <ErrorMessage/> : null;
     const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error) ? view() : null;
 
     return (
         <div className="char__list">
             {errorMessage}
             {spinner}
-            {content}
+            {view()}
             <button
                 className="button button__main button__long"
                 disabled={newItemLoading}

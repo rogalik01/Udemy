@@ -38,7 +38,7 @@
 // console.log();
 
 // const pass = prompt('Password');
-
+// const pass = "Example";
 // console.log(pass.replace(/./g, "*")); // arg1 - что, arg2 - на что
 // // . внутри регулярного выражения означает, что мы берём все элементы строки
 // // Для взятия именно точки необходимо "экранировать" символ \. , т.е. /\./g, "*"
@@ -56,7 +56,7 @@
 // const ans1 = prompt('Enter your number');
 // const reg1 = /\d/i;
 
-// console.log(ans1.match(reg1)); // есть ли в arg1 что-то похожее на паттерн из выражения (true/false)
+// console.log(ans1.match(reg1)); 
 
 // Классы
 // \d - цифры
@@ -78,7 +78,7 @@
 // Обратные классы
 // \D - не числа
 // \W - не буквы
-const str = 'My name is R2D2';
-console.log(str.match(/\W/g));
-console.log(str.match(/\D/g));
-console.log(str.match(/\D/g).join(''));
+// const str = 'My name is R2D2';
+// console.log(str.match(/\W/g));
+// console.log(str.match(/\D/g));
+// console.log(str.match(/\D/g).join(''));
