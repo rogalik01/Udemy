@@ -40,6 +40,7 @@ const useMarvelService = () => {
     }
 
     const _transformComics = (comics) => {
+        // console.log(comics)
         return {
             id: comics.id,
             title: comics.title,
@@ -48,7 +49,7 @@ const useMarvelService = () => {
             language: comics.textObjects?.length ? comics.textObjects[0].language : "en",
             price: comics.prices[0].price,
             thumbnail: comics.thumbnail.path + '.' + comics.thumbnail.extension,
-            url: comics.urls[1].url
+            url: comics.urls[0].url
         }
     }
 
