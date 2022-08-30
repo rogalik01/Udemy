@@ -1,7 +1,7 @@
 import {useHttp} from '../hooks/http.hook';
 
 const useMarvelService = () => {
-    const {loading, request, error, clearError} = useHttp();
+    const {loading, request, error, clearError, setLoading} = useHttp();
 
     const _apiBase = 'https://gateway.marvel.com:443/v1/public/';
     const _apiKey = 'apikey=80054140392ea531ca5ce6f94f95af91';
@@ -47,13 +47,13 @@ const useMarvelService = () => {
             description: comics.description ?? 'Description is not defined',
             pages: comics.pageCount,
             language: comics.textObjects?.length ? comics.textObjects[0].language : "en",
-            price: comics.prices[0].price,
+            price: comics.prices[0].price ? `${comics.prices[0].price}$` : 'Not available',
             thumbnail: comics.thumbnail.path + '.' + comics.thumbnail.extension,
             url: comics.urls[0].url
         }
     }
 
-    return {loading, error, getAllCharacters, getCharacter, clearError, getAllComics, getComic}
+    return {loading, error, getAllCharacters, getCharacter, clearError, getAllComics, getComic, setLoading}
 }
 
 export default useMarvelService;

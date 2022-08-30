@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import ComicsList from '../comicsList/ComicsList'
 import AppBanner from "../appBanner/AppBanner";
-import SingleComic from "../singleComic/SingleComic";
 
 const ComicsPage = () => {
     const [selectedComic, setComic] = useState(null);

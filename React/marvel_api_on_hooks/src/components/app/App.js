@@ -1,6 +1,6 @@
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
-import {MainPage, ComicsPage} from '../pages'; // По умолчанию WebPack ищет именно в папке index.js
+import {MainPage, ComicsPage, Page404, SingleComicPage} from '../pages'; // По умолчанию WebPack ищет именно в папке index.js
 import AppHeader from "../appHeader/AppHeader";
 
 
@@ -10,16 +10,22 @@ const App = () => {
             <div className="app">
                 <AppHeader/>
                 <main>
-                    <Switch> {/* без exact позволяет избежать композиции элементво */}
-                        <Route exact path="/"> {/* Могли просто поставить последним, т.к. Switch выдает первый совпавший элемент */}
-                            <MainPage/>
-                        </Route>
-                        <Route exact path="/comics">
-                            <ComicsPage/>
-                        </Route>
-                        {/* <Route exact path="/comics/singleComics">
-                        </Route> */}
-                    </Switch>
+                    <Routes>
+                        <Route path="/" 
+                            element={<MainPage/>}/> 
+                        <Route path="/comics" 
+                            element={<ComicsPage/>}/>
+                        <Route path="/comics/:comicId"
+                            element={<SingleComicPage/>}/>
+
+
+                        <Route
+                            path="*"
+                            element={
+                                <Page404/>
+                            }
+                            />
+                    </Routes>
                 </main>
             </div>
         </Router>

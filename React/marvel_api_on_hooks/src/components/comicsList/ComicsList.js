@@ -1,4 +1,6 @@
 import { useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
+
 import './comicsList.scss';
 import useMarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
@@ -53,7 +55,7 @@ const ComicsList = (props) => {
 
     function view() {
         const elements = comics.map((item, i) => {
-            const {thumbnail, title, id, url, price} = item;
+            const {thumbnail, title, id, price} = item;
             // let style = {'objectFit': 'cover'};
             // if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
             //     style = {'objectFit': 'unset'};
@@ -63,11 +65,11 @@ const ComicsList = (props) => {
                     className={"comics__item"}
                     key={i}
                     onClick={(elem) => props.onComicsSelected(id)}>
-                    <a href={url}>
+                    <Link to={`/comics/${id}`}>
                         <img src={thumbnail} alt={title} className="comics__item-img"/>
                         <div className="comics__item-name">{title}</div>
                         <div className="comics__item-price">{price}$</div>
-                    </a>
+                    </Link>
                 </li>
             )
         })
@@ -82,13 +84,11 @@ const ComicsList = (props) => {
     const errorMessage = error ? <ErrorMessage/> : null;
     const spinner = loading ? <Spinner/> : null;
 
-
-
     return (
         <div className="comics__list">
             {errorMessage}
-            {spinner}
             {view()}
+            {spinner} 
             <button
                 className="button button__main button__long"
                 disabled={newItemLoading}
